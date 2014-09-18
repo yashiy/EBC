@@ -87,8 +87,8 @@ function checkButtonDown(x) {
 function checkButtonRight(x) {
        grid[yPos][xPos] = '*';
         xPos = xPos + 1;
-        if ( xPos < 0 ){
-                xPos = 0;
+        if ( xPos > 7 ){
+                xPos = 7;
         }
         grid[yPos][xPos] = '+';
         printGrid(grid);
