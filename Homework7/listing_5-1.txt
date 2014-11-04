@@ -1,0 +1,41 @@
+yashi@yashi-VirtualBox:~/bb-kernel$ tools/rebuild.sh
++ Detected build host [Ubuntu 14.04.1 LTS]
++ host: [x86_64]
++ git HEAD commit: [d54eacf1838ab8b60e8014bd6fd9f208f1c3f661]
+-----------------------------
+scripts/gcc: Using: arm-linux-gnueabihf-gcc (crosstool-NG linaro-1.13.1-4.7-2013.04-20130415 - Linaro GCC 2013.04) 4.7.3 20130328 (prerelease)
+Copyright (C) 2012 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+-----------------------------
+CROSS_COMPILE=/home/yashi/bb-kernel/dl/gcc-linaro-arm-linux-gnueabihf-4.7-2013.04-20130415_linux/bin/arm-linux-gnueabihf-
+scripts/kconfig/mconf Kconfig
+drivers/video/Kconfig:60:error: recursive dependency detected!
+drivers/video/Kconfig:60:	symbol FB is selected by DRM_KMS_HELPER
+drivers/gpu/drm/Kconfig:28:	symbol DRM_KMS_HELPER is selected by DRM_TILCDC
+drivers/gpu/drm/tilcdc/Kconfig:1:	symbol DRM_TILCDC depends on BACKLIGHT_LCD_SUPPORT
+drivers/video/backlight/Kconfig:5:	symbol BACKLIGHT_LCD_SUPPORT is selected by FB_BACKLIGHT
+drivers/video/Kconfig:247:	symbol FB_BACKLIGHT is selected by PMAC_BACKLIGHT
+drivers/macintosh/Kconfig:134:	symbol PMAC_BACKLIGHT depends on FB
+warning: (USB_MUSB_HDRC) selects TWL6030_USB which has unmet direct dependencies (USB_SUPPORT && (USB || USB_GADGET) && TWL4030_CORE && OMAP_USB2 && USB_MUSB_OMAP2PLUS)
+warning: (DVB_USB_PCTV452E) selects TTPCI_EEPROM which has unmet direct dependencies (MEDIA_SUPPORT && MEDIA_PCI_SUPPORT && MEDIA_DIGITAL_TV_SUPPORT && I2C)
+
+
+*** End of the configuration.
+*** Execute 'make' to start the build or try 'make help'.
+
+‘.config’ -> ‘/home/yashi/bb-kernel/patches/defconfig’
+-----------------------------
+make -j1 ARCH=arm LOCALVERSION=-bone67 CROSS_COMPILE=/home/yashi/bb-kernel/dl/gcc-linaro-arm-linux-gnueabihf-4.7-2013.04-20130415_linux/bin/arm-linux-gnueabihf-  zImage modules
+-----------------------------
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+make[1]: `include/generated/mach-types.h' is up to date.
+  CALL    scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+  CHK     kernel/config_data.h
+  Kernel: arch/arm/boot/Image is ready
+  Kernel: arch/arm/boot/zImage is ready
+  Building modules, stage 2.
+  MODPOST 1274 modules
+
